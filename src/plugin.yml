@@ -1,0 +1,15 @@
+name: RailcraftHubDEVELOPMENTversion
+version: 999.99999
+author: BartRiemsdijk
+main: nl.railcraft.hub.Main
+commands:
+   gamemode:
+    description: lol
+   fly:
+    description: >     
+     
+permissions:
+  block.place:
+     default: op
+  donator.fly:
+     default: op
