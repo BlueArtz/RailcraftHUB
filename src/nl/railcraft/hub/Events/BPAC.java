@@ -34,6 +34,17 @@ public class BPAC implements Listener {
 			event.setCancelled(false);
 		}
 	}
+	
+  @EventHandler
+  public void inventory(InventoryClickEvent e)
+  {
+    Player player = (Player)e.getWhoClicked();
+    if (!player.hasPermission("rch.admin"))
+    {
+      e.setCancelled(true);
+      player.updateInventory();
+    }
+  }
 
 	@EventHandler
 	public void onLluvia(WeatherChangeEvent e) {
@@ -93,17 +104,17 @@ public class BPAC implements Listener {
 	public void onJoin(PlayerJoinEvent e) {
 		ItemStack itemspeed = new ItemStack(Material.SULPHUR);
 		ItemMeta itemspeedmeta = itemspeed.getItemMeta();
-		itemspeedmeta.setDisplayName("§9Speed -> §cOff");
+		itemspeedmeta.setDisplayName("Â§9Speed -> Â§cOff");
 		itemspeed.setItemMeta(itemspeedmeta);
 
 		ItemStack itemspeed4 = new ItemStack(Material.COMPASS);
 		ItemMeta itemspeedmeta4 = itemspeed.getItemMeta();
-		itemspeedmeta4.setDisplayName("§9Server §rSelector");
+		itemspeedmeta4.setDisplayName("Â§9Server Â§rSelector");
 		itemspeed4.setItemMeta(itemspeedmeta4);
 
 		ItemStack itemspeed5 = new ItemStack(Material.PAPER);
 		ItemMeta itemspeedmeta5 = itemspeed.getItemMeta();
-		itemspeedmeta4.setDisplayName("§9Network information");
+		itemspeedmeta4.setDisplayName("Â§9Network information");
 		itemspeed4.setItemMeta(itemspeedmeta4);
 
 		e.getPlayer().getInventory().setItem(5, itemspeed);
@@ -119,41 +130,42 @@ public class BPAC implements Listener {
 	    if (((e.getAction() == Action.RIGHT_CLICK_AIR) || (e.getAction() == Action.RIGHT_CLICK_BLOCK)) && 
 	      (p.getItemInHand().getType().equals(Material.PAPER))) {
 	    	p.sendMessage(" ");
-	    	p.sendMessage("§9§lWEBSITE §rrailcraft.nl");
-	    	p.sendMessage("§9§lDONATE §rstore.railcraft.nl");
-	    	p.sendMessage("§9§lYOUTUBE §rstore.railcraft.nl");
+	    	p.sendMessage("Â§9Â§lWEBSITE Â§rrailcraft.nl");
+	    	p.sendMessage("Â§9Â§lDONATE Â§rstore.railcraft.nl");
+	    	p.sendMessage("Â§9Â§lYOUTUBE Â§rstore.railcraft.nl");
 	    	p.sendMessage(" ");
 	    	p.playSound(p.getLocation(), Sound.NOTE_PLING, 1, 1);
 	    } }
 
-	@EventHandler
-	public void onclickevent(PlayerInteractEvent e) {
-		Player p = e.getPlayer();
-		if (((e.getAction() == Action.RIGHT_CLICK_AIR) || (e.getAction() == Action.RIGHT_CLICK_BLOCK))
-				&& (p.getItemInHand().getType().equals(Material.SULPHUR))) {
-			if (e.getPlayer().getItemInHand().getType().equals(Material.SULPHUR)) {
-				ItemStack itemspeed1 = new ItemStack(Material.SUGAR);
-				ItemMeta itemspeed1meta = itemspeed1.getItemMeta();
-				itemspeed1meta.setDisplayName("§9Speed §r-> §aOn");
-				itemspeed1.setItemMeta(itemspeed1meta);
-				e.getPlayer().getInventory().setItem(5, itemspeed1);
-				p.playSound(p.getLocation(), Sound.NOTE_PLING, 1, 1);
-
-				e.getPlayer().getInventory().remove(Material.SULPHUR);
-				e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 9));
-				e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, 3));
-			}
-		} else if (((e.getAction() == Action.RIGHT_CLICK_AIR) || (e.getAction() == Action.RIGHT_CLICK_BLOCK))
-				&& (p.getItemInHand().getType().equals(Material.SUGAR))) {
-			e.getPlayer().getInventory().remove(Material.SUGAR);
-			e.getPlayer().removePotionEffect(PotionEffectType.SPEED);
-			e.getPlayer().removePotionEffect(PotionEffectType.JUMP);
-			ItemStack itemspeed2 = new ItemStack(Material.SULPHUR);
-			ItemMeta itemspeed2meta = itemspeed2.getItemMeta();
-			itemspeed2meta.setDisplayName("§9Speed §r-> §cOff");
-			itemspeed2.setItemMeta(itemspeed2meta);
-			e.getPlayer().getInventory().setItem(5, itemspeed2);
-			p.playSound(p.getLocation(), Sound.NOTE_PLING, 1, 1);
+  @EventHandler
+  public void onclickevent(PlayerInteractEvent e)
+  {
+    Player p = e.getPlayer();
+    if (((e.getAction() == Action.RIGHT_CLICK_AIR) || (e.getAction() == Action.RIGHT_CLICK_BLOCK)) && 
+      (p.getItemInHand().getType().equals(Material.SULPHUR)))
+    {
+      if (e.getPlayer().getItemInHand().getType().equals(Material.SULPHUR))
+      {
+        ItemStack itemspeed1 = new ItemStack(Material.SUGAR);
+        ItemMeta itemspeed1meta = itemspeed1.getItemMeta();
+        itemspeed1meta.setDisplayName("Â§cÂ§lSPEED Â§7- Â§aON");
+        itemspeed1.setItemMeta(itemspeed1meta);
+        e.getPlayer().getInventory().setItem(4, itemspeed1);
+        
+        e.getPlayer().getInventory().remove(Material.SULPHUR);
+        e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 3));
+      }
+    }
+    else if (((e.getAction() == Action.RIGHT_CLICK_AIR) || (e.getAction() == Action.RIGHT_CLICK_BLOCK)) && 
+      (p.getItemInHand().getType().equals(Material.SUGAR)))
+    {
+      e.getPlayer().getInventory().remove(Material.SUGAR);
+      e.getPlayer().removePotionEffect(PotionEffectType.SPEED);
+      ItemStack itemspeed2 = new ItemStack(Material.SULPHUR);
+      ItemMeta itemspeed2meta = itemspeed2.getItemMeta();
+      itemspeed2meta.setDisplayName("Â§cÂ§lSPEED Â§7- Â§4OFF");
+      itemspeed2.setItemMeta(itemspeed2meta);
+      e.getPlayer().getInventory().setItem(4, itemspeed2);
 		}
 	}
 }
